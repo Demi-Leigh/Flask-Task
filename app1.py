@@ -1,31 +1,24 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 
 app = Flask(__name__)
 
 
-@app.route("/")
-def hello_world():
-    return "This is my first flask app"
+@app.route("/user/<name>")
+def user_page(name):
+    if name == "Demi":
+        return redirect(url_for('admin_page', name=name))
+    else:
+        return redirect(url_for('guest_page', name=name))
 
 
-@app.route("/index/")
-def index_page():
-    return "This is my home page"
+@app.route("/guest/<name>")
+def guest_page(name):
+    return "I am a guest. My name is %s" % name
 
 
-@app.route("/about/")
-def about_page():
-    return "<body style=background-color:gray><h1>THIS IS MY ABOUT PAGE</h1></body>"
-
-
-@app.route("/contact/")
-def contact_page():
-    return "<body style=background-color:yellow><h1>You Can Find My Contact Details Below</h1></body><br><p>Hope To Hear From You Soon<p>"
-
-
-@app.route("/projects/")
-def projects_page():
-    return "<body style=background-color:yellow><h1>Have A Look At Some Of The Projects I Have Done!!</h1></body>"
+@app.route("/admin/<name
+def admin_page(name):
+    return "The admin is %s" % name
 
 
 if __name__ == "__main__":
